@@ -1,0 +1,60 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[10]:
+
+
+D. Given a list of numbers, return a list where
+# all adjacent == elements have been reduced to a single element,
+# so [1, 2, 2, 3] returns [1, 2, 3]. You may create a new list or
+# modify the passed in list.
+def remove_adjacent(nums):
+    result = []
+    for num in nums:
+        if len(result) == 0 or num != result[-1]:
+            result.append(num)
+    return result
+remove_adjacent([1, 2, 2, 3])
+
+
+# In[16]:
+
+
+# E. Given two lists sorted in increasing order, create and return a merged
+# list of all the elements in sorted order. You may modify the passed in lists.
+# Ideally, the solution should work in "linear" time, making a single
+# pass of both lists.def linear_merge(list1, list2):
+    list1.extend(list2)
+    return list1.sort
+linear_merge([1,5,3],[6,1,4])
+
+
+# In[23]:
+
+
+#Write a method that takes input as a string (of many words) and 
+#returns a list of unique words in lowercase. (Do not use Sets for now!). 
+#Conditions - 
+#Remove the comma(,) and dots(.) from the words.
+#Ex - ‘Tree’ ‘Tree,’ and ‘Tree.’ are not three different words but just 1 unique word.
+#Unique words can be of any case, i.e., ‘Tree’ and ‘tree’ are the same word
+#Given an input string as - 
+# “Simple is better than complex, Complex is better than complicated.”, 
+#Solution should return - 
+#['simple', 'is', 'better', 'than', 'complex', 'complicated']
+
+tree = [['tree', 'Tree', 'Tree.','tree,']]
+[x.lower() for x in str]
+
+remove_comdot = [[y.strip('.,') for y in x] for x in tree]
+
+remove_comdot
+
+
+# In[25]:
+
+
+x= 'Simple is better than complex, Complex is better than complicated.'
+a=x.split()
+print(a)
+
