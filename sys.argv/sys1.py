@@ -1,6 +1,8 @@
 import sys
+import mysys
 
-print (sys.argv)
+clear_screen()
+
 
 sa = sys.argv
 if len(sa)<2:
