@@ -1,0 +1,23 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# crawling music artists and music titles from Korean music chart
+
+
+from urllib.request import urlopen 
+from bs4 import BeautifulSoup 
+
+url= urlopen('https://music.bugs.co.kr/chart/track/week/total')
+soup = BeautifulSoup(url,'lxml')
+cnt_artist = 0
+cnt_title = 0
+cnt_album = 0
+
+for link1 in soup.find_all(name='p', attrs={"class":"artist"}):
+    cnt_artist += 1
+    print('Artisit:'+ link1.find('a').text)
+
+for link2 in soup.find_all(name='p', attrs={"class":"title"}):
+    cnt_title += 1
+    print('title:'+ link2.find('a').text)
+    
