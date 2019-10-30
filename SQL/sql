@@ -1,0 +1,948 @@
+Last login: Tue Oct 29 13:02:41 on ttys000
+(base) Sunyoung-Ha:~ sunyoungha$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 21
+Server version: 8.0.18 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show character set;
++----------+---------------------------------+---------------------+--------+
+| Charset  | Description                     | Default collation   | Maxlen |
++----------+---------------------------------+---------------------+--------+
+| armscii8 | ARMSCII-8 Armenian              | armscii8_general_ci |      1 |
+| ascii    | US ASCII                        | ascii_general_ci    |      1 |
+| big5     | Big5 Traditional Chinese        | big5_chinese_ci     |      2 |
+| binary   | Binary pseudo charset           | binary              |      1 |
+| cp1250   | Windows Central European        | cp1250_general_ci   |      1 |
+| cp1251   | Windows Cyrillic                | cp1251_general_ci   |      1 |
+| cp1256   | Windows Arabic                  | cp1256_general_ci   |      1 |
+| cp1257   | Windows Baltic                  | cp1257_general_ci   |      1 |
+| cp850    | DOS West European               | cp850_general_ci    |      1 |
+| cp852    | DOS Central European            | cp852_general_ci    |      1 |
+| cp866    | DOS Russian                     | cp866_general_ci    |      1 |
+| cp932    | SJIS for Windows Japanese       | cp932_japanese_ci   |      2 |
+| dec8     | DEC West European               | dec8_swedish_ci     |      1 |
+| eucjpms  | UJIS for Windows Japanese       | eucjpms_japanese_ci |      3 |
+| euckr    | EUC-KR Korean                   | euckr_korean_ci     |      2 |
+| gb18030  | China National Standard GB18030 | gb18030_chinese_ci  |      4 |
+| gb2312   | GB2312 Simplified Chinese       | gb2312_chinese_ci   |      2 |
+| gbk      | GBK Simplified Chinese          | gbk_chinese_ci      |      2 |
+| geostd8  | GEOSTD8 Georgian                | geostd8_general_ci  |      1 |
+| greek    | ISO 8859-7 Greek                | greek_general_ci    |      1 |
+| hebrew   | ISO 8859-8 Hebrew               | hebrew_general_ci   |      1 |
+| hp8      | HP West European                | hp8_english_ci      |      1 |
+| keybcs2  | DOS Kamenicky Czech-Slovak      | keybcs2_general_ci  |      1 |
+| koi8r    | KOI8-R Relcom Russian           | koi8r_general_ci    |      1 |
+| koi8u    | KOI8-U Ukrainian                | koi8u_general_ci    |      1 |
+| latin1   | cp1252 West European            | latin1_swedish_ci   |      1 |
+| latin2   | ISO 8859-2 Central European     | latin2_general_ci   |      1 |
+| latin5   | ISO 8859-9 Turkish              | latin5_turkish_ci   |      1 |
+| latin7   | ISO 8859-13 Baltic              | latin7_general_ci   |      1 |
+| macce    | Mac Central European            | macce_general_ci    |      1 |
+| macroman | Mac West European               | macroman_general_ci |      1 |
+| sjis     | Shift-JIS Japanese              | sjis_japanese_ci    |      2 |
+| swe7     | 7bit Swedish                    | swe7_swedish_ci     |      1 |
+| tis620   | TIS620 Thai                     | tis620_thai_ci      |      1 |
+| ucs2     | UCS-2 Unicode                   | ucs2_general_ci     |      2 |
+| ujis     | EUC-JP Japanese                 | ujis_japanese_ci    |      3 |
+| utf16    | UTF-16 Unicode                  | utf16_general_ci    |      4 |
+| utf16le  | UTF-16LE Unicode                | utf16le_general_ci  |      4 |
+| utf32    | UTF-32 Unicode                  | utf32_general_ci    |      4 |
+| utf8     | UTF-8 Unicode                   | utf8_general_ci     |      3 |
+| utf8mb4  | UTF-8 Unicode                   | utf8mb4_0900_ai_ci  |      4 |
++----------+---------------------------------+---------------------+--------+
+41 rows in set (0.00 sec)
+
+mysql> show variable like 'char%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'variable like 'char%'' at line 1
+mysql> show variables like 'char%';
++--------------------------+-----------------------------------------------------------+
+| Variable_name            | Value                                                     |
++--------------------------+-----------------------------------------------------------+
+| character_set_client     | utf8mb4                                                   |
+| character_set_connection | utf8mb4                                                   |
+| character_set_database   | utf8mb4                                                   |
+| character_set_filesystem | binary                                                    |
+| character_set_results    | utf8mb4                                                   |
+| character_set_server     | utf8mb4                                                   |
+| character_set_system     | utf8                                                      |
+| character_sets_dir       | /usr/local/mysql-8.0.18-macos10.14-x86_64/share/charsets/ |
++--------------------------+-----------------------------------------------------------+
+8 rows in set (0.01 sec)
+
+mysql> create database dev;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> create database test;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> create database prod;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| dev                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| prod               |
+| sunyoung           |
+| sys                |
+| test               |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> use prod;
+Database changed
+mysql> select database();
++------------+
+| database() |
++------------+
+| prod       |
++------------+
+1 row in set (0.00 sec)
+
+mysql> drop database sunyoung;
+Query OK, 4 rows affected (0.02 sec)
+
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| dev                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| prod               |
+| sys                |
+| test               |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> use prod;
+Database changed
+mysql> create table customers(cust_id int primary key auto_increment, username varchar(50),f_name varchar(50), l_name varchar(50), phone varchar(25));
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_prod |
++----------------+
+| customers      |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> describe customers;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| cust_id  | int(11)     | NO   | PRI | NULL    | auto_increment |
+| username | varchar(50) | YES  |     | NULL    |                |
+| f_name   | varchar(50) | YES  |     | NULL    |                |
+| l_name   | varchar(50) | YES  |     | NULL    |                |
+| phone    | varchar(25) | YES  |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> show columns from customersl
+    -> ;
+ERROR 1146 (42S02): Table 'prod.customersl' doesn't exist
+mysql> show columns from customers;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| cust_id  | int(11)     | NO   | PRI | NULL    | auto_increment |
+| username | varchar(50) | YES  |     | NULL    |                |
+| f_name   | varchar(50) | YES  |     | NULL    |                |
+| l_name   | varchar(50) | YES  |     | NULL    |                |
+| phone    | varchar(25) | YES  |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> show table status\g
++-----------+--------+---------+------------+------+----------------+-------------+-----------------+--------------+-----------+----------------+---------------------+-------------+------------+--------------------+----------+----------------+---------+
+| Name      | Engine | Version | Row_format | Rows | Avg_row_length | Data_length | Max_data_length | Index_length | Data_free | Auto_increment | Create_time         | Update_time | Check_time | Collation          | Checksum | Create_options | Comment |
++-----------+--------+---------+------------+------+----------------+-------------+-----------------+--------------+-----------+----------------+---------------------+-------------+------------+--------------------+----------+----------------+---------+
+| customers | InnoDB |      10 | Dynamic    |    0 |              0 |       16384 |               0 |            0 |         0 |           NULL | 2019-10-29 17:06:13 | NULL        | NULL       | utf8mb4_0900_ai_ci |     NULL |                |         |
++-----------+--------+---------+------------+------+----------------+-------------+-----------------+--------------+-----------+----------------+---------------------+-------------+------------+--------------------+----------+----------------+---------+
+1 row in set (0.01 sec)
+
+mysql> show create table customers;
++-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table     | Create Table                                                                                                                                                                                                                                                                                                              |
++-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| customers | CREATE TABLE `customers` (
+  `cust_id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) DEFAULT NULL,
+  `f_name` varchar(50) DEFAULT NULL,
+  `l_name` varchar(50) DEFAULT NULL,
+  `phone` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`cust_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> create table customers_test like customers;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> describe customers_test;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| cust_id  | int(11)     | NO   | PRI | NULL    | auto_increment |
+| username | varchar(50) | YES  |     | NULL    |                |
+| f_name   | varchar(50) | YES  |     | NULL    |                |
+| l_name   | varchar(50) | YES  |     | NULL    |                |
+| phone    | varchar(25) | YES  |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> create table customers_bkup select * from customers;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show tables
+    -> ;
++----------------+
+| Tables_in_prod |
++----------------+
+| customers      |
+| customers_bkup |
+| customers_test |
++----------------+
+3 rows in set (0.00 sec)
+
+mysql> drop table customers_test;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> use prod;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_prod |
++----------------+
+| customers      |
+| customers_bkup |
++----------------+
+2 rows in set (0.01 sec)
+
+mysql> describe customers;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| cust_id  | int(11)     | NO   | PRI | NULL    | auto_increment |
+| username | varchar(50) | YES  |     | NULL    |                |
+| f_name   | varchar(50) | YES  |     | NULL    |                |
+| l_name   | varchar(50) | YES  |     | NULL    |                |
+| phone    | varchar(25) | YES  |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> describe customers_bkup;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| cust_id  | int(11)     | NO   |     | 0       |       |
+| username | varchar(50) | YES  |     | NULL    |       |
+| f_name   | varchar(50) | YES  |     | NULL    |       |
+| l_name   | varchar(50) | YES  |     | NULL    |       |
+| phone    | varchar(25) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> mysql> insert into customers(username,f_name,f_name,l_name,phone) values ('pparker','peter','parker','1111');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(username,f_name,f_name,l_name,phone) values ('pparker','peter','parker','1111')' at line 1
+mysql> insert into customers (ymers(username,f_name,f_name,l_name,phone) values ('pparker','peter','parker',11111);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(username,f_name,f_name,l_name,phone) values ('pparker','peter','parker',11111)' at line 1
+mysql> insert into customers (ymers(username,f_name,l_name,phone) values ('pparker','peter','parker',11111);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(username,f_name,l_name,phone) values ('pparker','peter','parker',11111)' at line 1
+mysql> insert into customers (username,f_name,l_name,phone) values ('pparker','peter','parker',11111);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into customers (ymers(username,f_name,l_name,phone) values ('bwayne','bruce','wayne','22222'),('ckent','clark','kent','33333');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(username,f_name,l_name,phone) values ('bwayne','bruce','wayne','22222'),('ckent' at line 1
+mysql> insert into customers (username,f_name,l_name,phone) values ('bwayne','bruce','wayne','22222'),('ckent','clark','kent','33333');
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from customersl
+    -> ;
+ERROR 1146 (42S02): Table 'prod.customersl' doesn't exist
+mysql> select * from customers;
++---------+----------+--------+--------+-------+
+| cust_id | username | f_name | l_name | phone |
++---------+----------+--------+--------+-------+
+|       1 | pparker  | peter  | parker | 11111 |
+|       2 | bwayne   | bruce  | wayne  | 22222 |
+|       3 | ckent    | clark  | kent   | 33333 |
++---------+----------+--------+--------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into customercustomers_bkups (username,f_name,f_name,l_name,phone) values ('pparker','peter','parker','1111');
+ERROR 1146 (42S02): Table 'prod.customercustomers_bkups' doesn't exist
+mysql> show tables
+    -> ;
++----------------+
+| Tables_in_prod |
++----------------+
+| customers      |
+| customers_bkup |
++----------------+
+2 rows in set (0.00 sec)
+
+mysql> show customers_bkup
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'customers_bkup' at line 1
+mysql> describe customers_bkup;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| cust_id  | int(11)     | NO   |     | 0       |       |
+| username | varchar(50) | YES  |     | NULL    |       |
+| f_name   | varchar(50) | YES  |     | NULL    |       |
+| l_name   | varchar(50) | YES  |     | NULL    |       |
+| phone    | varchar(25) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into customercustomers_bkup (cust_id,username,f_name,f_name,l_name,phone) values ('pparker','peter','parker','1111');
+ERROR 1146 (42S02): Table 'prod.customercustomers_bkup' doesn't exist
+mysql> insert into customers_bkup (cust_id,username,f_name,f_name,l_name,phone) values ('pparker','peter','parker','1111');
+ERROR 1110 (42000): Column 'f_name' specified twice
+mysql> insert into customers_bkup (cust_id,username,f_name,l_name,phone) values ('pparker','peter','parker','1111');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into customers_bkup (cust_id,username,f_name,l_name,phone) value select * from customers where cust_id='1';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select * from customers where cust_id='1'' at line 1
+mysql> insert into customers_bkup (cust_id,username,f_name,l_name,phone) select * from customers where cust_id='1';;
+Query OK, 1 row affected (0.00 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> insert into customers_bkup (cust_id,username,f_name,l_name,phone) select * from customers where cust_id>'1';
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from customers_bkup;
++---------+----------+--------+--------+-------+
+| cust_id | username | f_name | l_name | phone |
++---------+----------+--------+--------+-------+
+|       1 | pparker  | peter  | parker | 11111 |
+|       2 | bwayne   | bruce  | wayne  | 22222 |
+|       3 | ckent    | clark  | kent   | 33333 |
++---------+----------+--------+--------+-------+
+3 rows in set (0.01 sec)
+
+mysql> select * from customers_bkup order by l_name;
++---------+----------+--------+--------+-------+
+| cust_id | username | f_name | l_name | phone |
++---------+----------+--------+--------+-------+
+|       3 | ckent    | clark  | kent   | 33333 |
+|       1 | pparker  | peter  | parker | 11111 |
+|       2 | bwayne   | bruce  | wayne  | 22222 |
++---------+----------+--------+--------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select f_name,l_name from customers_bkup;
++--------+--------+
+| f_name | l_name |
++--------+--------+
+| peter  | parker |
+| bruce  | wayne  |
+| clark  | kent   |
++--------+--------+
+3 rows in set (0.01 sec)
+
+mysql> select concat(l_name,',',f_name) from customers_bkup;
++---------------------------+
+| concat(l_name,',',f_name) |
++---------------------------+
+| parker,peter              |
+| wayne,bruce               |
+| kent,clark                |
++---------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select concat(l_name,', ',f_name) from customers_bkup;
++----------------------------+
+| concat(l_name,', ',f_name) |
++----------------------------+
+| parker, peter              |
+| wayne, bruce               |
+| kent, clark                |
++----------------------------+
+3 rows in set (0.00 sec)
+
+mysql> delete from customers_bkup where f_name='peter';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from customers_bkup;
++---------+----------+--------+--------+-------+
+| cust_id | username | f_name | l_name | phone |
++---------+----------+--------+--------+-------+
+|       2 | bwayne   | bruce  | wayne  | 22222 |
+|       3 | ckent    | clark  | kent   | 33333 |
++---------+----------+--------+--------+-------+
+2 rows in set (0.00 sec)
+
+mysql> show tables from prod;
++----------------+
+| Tables_in_prod |
++----------------+
+| customers      |
+| customers_bkup |
++----------------+
+2 rows in set (0.00 sec)
+
+mysql> show tables from test;
+Empty set (0.00 sec)
+
+mysql> mysqldump -u root -p -all-databases > full_bkp.sql
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysqldump -u root -p -all-databases > full_bkp.sql' at line 1
+mysql> mysqldump -u root -p --all-databases > full_bkp.sql
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysqldump -u root -p --all-databases > full_bkp.sql' at line 1
+mysql> mysqldump -u root -p customers > test_cust_bkp.sql
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysqldump -u root -p customers > test_cust_bkp.sql' at line 1
+mysql> mysqldump -u root -p customers > test_cust_bkp.sql
+    -> 
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysqldump -u root -p customers > test_cust_bkp.sql' at line 1
+mysql> mysqldump -u root -p --databases dev test > devtest__bkp.sql
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysqldump -u root -p --databases dev test > devtest__bkp.sql' at line 1
+mysql> show databasese;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databasese' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| dev                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| prod               |
+| sys                |
+| test               |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> describe data_time;
+ERROR 1146 (42S02): Table 'prod.data_time' doesn't exist
+mysql> create table date_time;
+ERROR 1113 (42000): A table must have at least 1 column
+mysql> create table date_time(date date,datetime datetime,timestamp timestamp,time time,year year(4));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into date_time(date) value('2019-02-23'),('99-01-21');
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into date_time(datetime,timestamp) value('2019-02-23 11:30:00'),('99-01-21 12:00:00');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into date_time(datetime,timestamp) values ('2019-02-23 11:30:00'),('99-01-21 12:00:00');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into date_time(datetime,timestamp) values ('2019-02-23 11:30:00'),(2002:05:15 12:00:00');
+    '> ;
+    '> insert into date_time(datetime,timestamp) values ('2019-02-23 11:30:00'),(2002:05:15 12:00:00');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':05:15 12:00:00');
+;
+insert into date_time(datetime,timestamp) values ('2019-02-' at line 1
+mysql> insert into date_time(datetime,timestamp) values ('2019-02-23 11:30:00'),(2002:05:15 12:00:00');                                       ;                                                                                                                                             insert into date_time(datetime,timestamp) values ('2019-02-23 11:30:00',2002:05:15 12:00:00');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':05:15 12:00:00');
+;
+insert into date_time(datetime,timestamp) values ('2019-02-' at line 1
+mysql> insert into date_time(datetime,timestamp) values ('2019-02-23 11:30:00'),(2002:05:15 12:00:00');                                       ;                                                                                                                                             insert into date_time(datetime,timestamp) values ('2019-02-23 11:30:00',2002:05:15 12:00:00');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':05:15 12:00:00');
+;
+insert into date_time(datetime,timestamp) values ('2019-02-' at line 1
+mysql> select * from date_time;
++------------+----------+-----------+------+------+
+| date       | datetime | timestamp | time | year |
++------------+----------+-----------+------+------+
+| 2019-02-23 | NULL     | NULL      | NULL | NULL |
+| 1999-01-21 | NULL     | NULL      | NULL | NULL |
++------------+----------+-----------+------+------+
+2 rows in set (0.00 sec)
+
+mysql> insert into date_time(datetime,timestamp) values ('2019-02-23 11:30:00','2002:05:15 12:00:00');                                        ;                                                                                                                                             Query OK, 1 row affected (0.00 sec)
+
+ERROR: 
+No query specified
+
+mysql> insert into date_time(datetime,timestamp) values ('2019-02-23 11:30:00','2002:05:15 12:00:00');                                        Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from date_time;                                                                                                               +------------+---------------------+---------------------+------+------+
+| date       | datetime            | timestamp           | time | year |
++------------+---------------------+---------------------+------+------+
+| 2019-02-23 | NULL                | NULL                | NULL | NULL |
+| 1999-01-21 | NULL                | NULL                | NULL | NULL |
+| NULL       | 2019-02-23 11:30:00 | 2002-05-15 12:00:00 | NULL | NULL |
+| NULL       | 2019-02-23 11:30:00 | 2002-05-15 12:00:00 | NULL | NULL |
++------------+---------------------+---------------------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> set time_zone ='+03:00';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from date_time;
++------------+---------------------+---------------------+------+------+
+| date       | datetime            | timestamp           | time | year |
++------------+---------------------+---------------------+------+------+
+| 2019-02-23 | NULL                | NULL                | NULL | NULL |
+| 1999-01-21 | NULL                | NULL                | NULL | NULL |
+| NULL       | 2019-02-23 11:30:00 | 2002-05-15 22:00:00 | NULL | NULL |
+| NULL       | 2019-02-23 11:30:00 | 2002-05-15 22:00:00 | NULL | NULL |
++------------+---------------------+---------------------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> insert into date_time(time) values('09:30'),('0930');
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from date_time;
++------------+---------------------+---------------------+----------+------+
+| date       | datetime            | timestamp           | time     | year |
++------------+---------------------+---------------------+----------+------+
+| 2019-02-23 | NULL                | NULL                | NULL     | NULL |
+| 1999-01-21 | NULL                | NULL                | NULL     | NULL |
+| NULL       | 2019-02-23 11:30:00 | 2002-05-15 22:00:00 | NULL     | NULL |
+| NULL       | 2019-02-23 11:30:00 | 2002-05-15 22:00:00 | NULL     | NULL |
+| NULL       | NULL                | NULL                | 09:30:00 | NULL |
+| NULL       | NULL                | NULL                | 00:09:30 | NULL |
++------------+---------------------+---------------------+----------+------+
+6 rows in set (0.00 sec)
+
+mysql> select * from customers;
++---------+----------+--------+--------+-------+
+| cust_id | username | f_name | l_name | phone |
++---------+----------+--------+--------+-------+
+|       1 | pparker  | peter  | parker | 11111 |
+|       2 | bwayne   | bruce  | wayne  | 22222 |
+|       3 | ckent    | clark  | kent   | 33333 |
++---------+----------+--------+--------+-------+
+3 rows in set (0.01 sec)
+
+mysql> create view phone as select l_name,f_name,phone from customers ordered by l_name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'by l_name' at line 1
+mysql> create view cust_phone as select l_name,f_name,phone from customers ordered by l_name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'by l_name' at line 1
+mysql> create view cust_phone as select l_name,f_name,phone from customers order by l_name;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_prod |
++----------------+
+| cust_phone     |
+| customers      |
+| customers_bkup |
+| date_time      |
++----------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from cust_phone;
++--------+--------+-------+
+| l_name | f_name | phone |
++--------+--------+-------+
+| kent   | clark  | 33333 |
+| parker | peter  | 11111 |
+| wayne  | bruce  | 22222 |
++--------+--------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from cust_phone where l_name = 'kent';
++--------+--------+-------+
+| l_name | f_name | phone |
++--------+--------+-------+
+| kent   | clark  | 33333 |
++--------+--------+-------+
+1 row in set (0.00 sec)
+
+mysql> drop view cust_phone;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_prod |
++----------------+
+| customers      |
+| customers_bkup |
+| date_time      |
++----------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customers;
++---------+----------+--------+--------+-------+
+| cust_id | username | f_name | l_name | phone |
++---------+----------+--------+--------+-------+
+|       1 | pparker  | peter  | parker | 11111 |
+|       2 | bwayne   | bruce  | wayne  | 22222 |
+|       3 | ckent    | clark  | kent   | 33333 |
++---------+----------+--------+--------+-------+
+3 rows in set (0.00 sec)
+
+mysql> describe auditl
+    -> describe audit;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'describe audit' at line 2
+mysql> describe audit;
+ERROR 1146 (42S02): Table 'prod.audit' doesn't exist
+mysql> create table audit (username varchar(25), phone varchar(25), date datetime);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> describe audit;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| username | varchar(25) | YES  |     | NULL    |       |
+| phone    | varchar(25) | YES  |     | NULL    |       |
+| date     | datetime    | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create  trigger update_trigger before update on customers for each row insert into audit (username,phone,date) values (old.username,old.phone,now());
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show triggers;
++----------------+--------+-----------+-------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| Trigger        | Event  | Table     | Statement                                                                     | Timing | Created                | sql_mode                                                                                                              | Definer        | character_set_client | collation_connection | Database Collation |
++----------------+--------+-----------+-------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| update_trigger | UPDATE | customers | insert into audit (username,phone,date) values (old.username,old.phone,now()) | BEFORE | 2019-10-30 05:02:31.59 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++----------------+--------+-----------+-------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+1 row in set (0.00 sec)
+
+mysql> show triggers\g
++----------------+--------+-----------+-------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| Trigger        | Event  | Table     | Statement                                                                     | Timing | Created                | sql_mode                                                                                                              | Definer        | character_set_client | collation_connection | Database Collation |
++----------------+--------+-----------+-------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| update_trigger | UPDATE | customers | insert into audit (username,phone,date) values (old.username,old.phone,now()) | BEFORE | 2019-10-30 05:02:31.59 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++----------------+--------+-----------+-------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from customers;
++---------+----------+--------+--------+-------+
+| cust_id | username | f_name | l_name | phone |
++---------+----------+--------+--------+-------+
+|       1 | pparker  | peter  | parker | 11111 |
+|       2 | bwayne   | bruce  | wayne  | 22222 |
+|       3 | ckent    | clark  | kent   | 33333 |
++---------+----------+--------+--------+-------+
+3 rows in set (0.01 sec)
+
+mysql> update customers set phone = '44444' where cust_id = '1';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customers;
++---------+----------+--------+--------+-------+
+| cust_id | username | f_name | l_name | phone |
++---------+----------+--------+--------+-------+
+|       1 | pparker  | peter  | parker | 44444 |
+|       2 | bwayne   | bruce  | wayne  | 22222 |
+|       3 | ckent    | clark  | kent   | 33333 |
++---------+----------+--------+--------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from audit;
++----------+-------+---------------------+
+| username | phone | date                |
++----------+-------+---------------------+
+| pparker  | 11111 | 2019-10-30 05:05:02 |
++----------+-------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> update customers set username = 'ckentttt' where cust_id = '3';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from audit;
++----------+-------+---------------------+
+| username | phone | date                |
++----------+-------+---------------------+
+| pparker  | 11111 | 2019-10-30 05:05:02 |
+| ckent    | 33333 | 2019-10-30 05:06:12 |
++----------+-------+---------------------+
+2 rows in set (0.00 sec)
+
+mysql> show truggers\g
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'truggers' at line 1
+mysql> show triggers\g
++----------------+--------+-----------+-------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| Trigger        | Event  | Table     | Statement                                                                     | Timing | Created                | sql_mode                                                                                                              | Definer        | character_set_client | collation_connection | Database Collation |
++----------------+--------+-----------+-------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| update_trigger | UPDATE | customers | insert into audit (username,phone,date) values (old.username,old.phone,now()) | BEFORE | 2019-10-30 05:02:31.59 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++----------------+--------+-----------+-------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+1 row in set (0.00 sec)
+
+mysql> delimiter //
+mysql> create procedure getCustomers()
+    -> begin
+    -> select * from customers;
+    -> end//
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> delimiter ;
+mysql> show procedure status like 'getCustomers'\G
+*************************** 1. row ***************************
+                  Db: prod
+                Name: getCustomers
+                Type: PROCEDURE
+             Definer: root@localhost
+            Modified: 2019-10-30 05:10:21
+             Created: 2019-10-30 05:10:21
+       Security_type: DEFINER
+             Comment: 
+character_set_client: utf8mb4
+collation_connection: utf8mb4_0900_ai_ci
+  Database Collation: utf8mb4_0900_ai_ci
+1 row in set (0.00 sec)
+
+mysql> call getCustomers();
++---------+----------+--------+--------+-------+
+| cust_id | username | f_name | l_name | phone |
++---------+----------+--------+--------+-------+
+|       1 | pparker  | peter  | parker | 44444 |
+|       2 | bwayne   | bruce  | wayne  | 22222 |
+|       3 | ckentttt | clark  | kent   | 33333 |
++---------+----------+--------+--------+-------+
+3 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> create function hello (s char(20))
+    -> return char(50) deterministic
+    -> return concat('hello, ',s,'!');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'return char(50) deterministic
+return concat('hello, ',s,'!')' at line 2
+mysql> create function hello (s char(20)) 
+    -> returns char(50) deterministic
+    -> return concat('helle, ',s,'!');
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> selectt hello('world');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selectt hello('world')' at line 1
+mysql> select hello('world');
++----------------+
+| hello('world') |
++----------------+
+| helle, world!  |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> show function status like 'hello'\G
+*************************** 1. row ***************************
+                  Db: prod
+                Name: hello
+                Type: FUNCTION
+             Definer: root@localhost
+            Modified: 2019-10-30 05:15:07
+             Created: 2019-10-30 05:15:07
+       Security_type: DEFINER
+             Comment: 
+character_set_client: utf8mb4
+collation_connection: utf8mb4_0900_ai_ci
+  Database Collation: utf8mb4_0900_ai_ci
+1 row in set (0.00 sec)
+
+mysql> drop function hello;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show function status like 'hello'\G
+Empty set (0.00 sec)
+
+mysql> show processlist\G
+*************************** 1. row ***************************
+     Id: 4
+   User: event_scheduler
+   Host: localhost
+     db: NULL
+Command: Daemon
+   Time: 24378
+  State: Waiting on empty queue
+   Info: NULL
+*************************** 2. row ***************************
+     Id: 21
+   User: root
+   Host: localhost
+     db: prod
+Command: Query
+   Time: 0
+  State: starting
+   Info: show processlist
+2 rows in set (0.00 sec)
+
+mysql> 
+mysql> create event test on schedule at '2019-10-29 07:22:00' do select * from customers;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> show events from prod\G
+Empty set (0.01 sec)
+
+mysql> alter event test do select * from customers_test;
+ERROR 1539 (HY000): Unknown event 'test'
+mysql> alter event test do select * from customers;
+ERROR 1539 (HY000): Unknown event 'test'
+mysql> create event test on schedule at '2019-10-29 07:22:00' do select * from customers;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> show event test;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'event test' at line 1
+mysql> drop event test;
+ERROR 1539 (HY000): Unknown event 'test'
+mysql> create event test on schedule at '2019-10-29 07:25:00' do select * from customers;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> create event test on schedule at '2019-10-29 07:28:00' do select * from customers;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> show event test;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'event test' at line 1
+mysql> show create event test;
+ERROR 1539 (HY000): Unknown event 'test'
+mysql> show create event;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> drop event test
+    -> ;
+ERROR 1539 (HY000): Unknown event 'test'
+mysql> create table products (product_id int primary key auto_increment, product_type varchar(255) not null unique, price decimal(10,2));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> describe products;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| product_id   | int(11)       | NO   | PRI | NULL    | auto_increment |
+| product_type | varchar(255)  | NO   | UNI | NULL    |                |
+| price        | decimal(10,2) | YES  |     | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> create table orders (order_id int primary key auto_increment, cust_id int, product_type varchar(255) not null, quantity int default 1, order_date date, foreign key (cust_id) references customers(cust_id), foreigh key (product_type references products(product_type));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key (product_type references products(product_type))' at line 1
+mysql> select * from customers;
++---------+----------+--------+--------+-------+
+| cust_id | username | f_name | l_name | phone |
++---------+----------+--------+--------+-------+
+|       1 | pparker  | peter  | parker | 44444 |
+|       2 | bwayne   | bruce  | wayne  | 22222 |
+|       3 | ckentttt | clark  | kent   | 33333 |
++---------+----------+--------+--------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table customers add column address varchar(255) after phone;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from customers;
++---------+----------+--------+--------+-------+---------+
+| cust_id | username | f_name | l_name | phone | address |
++---------+----------+--------+--------+-------+---------+
+|       1 | pparker  | peter  | parker | 44444 | NULL    |
+|       2 | bwayne   | bruce  | wayne  | 22222 | NULL    |
+|       3 | ckentttt | clark  | kent   | 33333 | NULL    |
++---------+----------+--------+--------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> alter table customers drop address;
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from customers;
++---------+----------+--------+--------+-------+
+| cust_id | username | f_name | l_name | phone |
++---------+----------+--------+--------+-------+
+|       1 | pparker  | peter  | parker | 44444 |
+|       2 | bwayne   | bruce  | wayne  | 22222 |
+|       3 | ckentttt | clark  | kent   | 33333 |
++---------+----------+--------+--------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from tables where username like 'b%';
+ERROR 1146 (42S02): Table 'prod.tables' doesn't exist
+mysql> select * from customers where username like 'b%';
++---------+----------+--------+--------+-------+
+| cust_id | username | f_name | l_name | phone |
++---------+----------+--------+--------+-------+
+|       2 | bwayne   | bruce  | wayne  | 22222 |
++---------+----------+--------+--------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from customers where cust_id<2;
++---------+----------+--------+--------+-------+
+| cust_id | username | f_name | l_name | phone |
++---------+----------+--------+--------+-------+
+|       1 | pparker  | peter  | parker | 44444 |
++---------+----------+--------+--------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from customers order by l_name;
++---------+----------+--------+--------+-------+
+| cust_id | username | f_name | l_name | phone |
++---------+----------+--------+--------+-------+
+|       3 | ckentttt | clark  | kent   | 33333 |
+|       1 | pparker  | peter  | parker | 44444 |
+|       2 | bwayne   | bruce  | wayne  | 22222 |
++---------+----------+--------+--------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customers order by username;
++---------+----------+--------+--------+-------+
+| cust_id | username | f_name | l_name | phone |
++---------+----------+--------+--------+-------+
+|       2 | bwayne   | bruce  | wayne  | 22222 |
+|       3 | ckentttt | clark  | kent   | 33333 |
+|       1 | pparker  | peter  | parker | 44444 |
++---------+----------+--------+--------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table orders (order_id int primary key auto_increment, cust_id int, product_type varchar(255) not null, quantity int default 1, order_date date, foreign key (cust_id) references customers(cust_id), foreigh key (product_type references products(product_type)); 
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key (product_type references products(product_type))' at line 1
+mysql> create table orders (order_id int primary key auto_increment, cust_id int, product_type varchar(255) not null, quantity int default 1, order_date date, foreign key(cust_id) references customers(cust_id), foreign key (product_type references products(product_type));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references products(product_type))' at line 1
+mysql> CREATE TABLE sales.orders (
+    ->  order_id INT IDENTITY (1, 1) PRIMARY KEY,
+    ->  customer_id INT,
+    ->  order_status tinyint NOT NULL,
+    ->  -- Order status: 1 = Pending; 2 = Processing; 3 = Rejected; 4 = Completed
+    ->  order_date DATE NOT NULL,
+    ->  required_date DATE NOT NULL,
+    ->  shipped_date DATE,
+    ->  store_id INT NOT NULL,
+    ->  staff_id INT NOT NULL,
+    ->  FOREIGN KEY (customer_id) 
+    ->         REFERENCES sales.customers (customer_id) 
+    ->         ON DELETE CASCADE ON UPDATE CASCADE,
+    ->  FOREIGN KEY (store_id) 
+    ->         REFERENCES sales.stores (store_id) 
+    ->         ON DELETE CASCADE ON UPDATE CASCADE,
+    ->  FOREIGN KEY (staff_id) 
+    ->         REFERENCES sales.staffs (staff_id) 
+    -> ;   
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'IDENTITY (1, 1) PRIMARY KEY,
+ customer_id INT,
+ order_status tinyint NOT NULL,
+ ' at line 2
+mysql> mysql> create table orders (order_id int primary key, cust_id int, product varchar(255), order_date date, foreign key (cust_id) references customers (cust_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'create table orders (order_id int primary key, cust_id int, product varchar(255)' at line 1
+mysql> CREATE TABLE Orders (
+    ->     OrderID int NOT NULL,
+    ->     OrderNumber int NOT NULL,
+    ->     PersonID int,
+    ->     PRIMARY KEY (OrderID),
+    ->     FOREIGN KEY (PersonID) REFERENCES Persons(PersonID)
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 6
+mysql> CREATE TABLE Orders (
+    -> OrderID int NOT NULL
