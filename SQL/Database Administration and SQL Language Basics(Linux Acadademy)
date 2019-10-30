@@ -1,17 +1,4 @@
-Last login: Tue Oct 29 13:02:41 on ttys000
-(base) Sunyoung-Ha:~ sunyoungha$ mysql -u root -p
-Enter password: 
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 21
-Server version: 8.0.18 MySQL Community Server - GPL
 
-Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
-
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
-
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 mysql> show character set;
 +----------+---------------------------------+---------------------+--------+
@@ -61,8 +48,7 @@ mysql> show character set;
 +----------+---------------------------------+---------------------+--------+
 41 rows in set (0.00 sec)
 
-mysql> show variable like 'char%';
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'variable like 'char%'' at line 1
+
 mysql> show variables like 'char%';
 +--------------------------+-----------------------------------------------------------+
 | Variable_name            | Value                                                     |
@@ -115,8 +101,6 @@ mysql> select database();
 mysql> drop database sunyoung;
 Query OK, 4 rows affected (0.02 sec)
 
-mysql> show database;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
 mysql> show databases;
 +--------------------+
 | Database           |
@@ -156,9 +140,6 @@ mysql> describe customers;
 +----------+-------------+------+-----+---------+----------------+
 5 rows in set (0.00 sec)
 
-mysql> show columns from customersl
-    -> ;
-ERROR 1146 (42S02): Table 'prod.customersl' doesn't exist
 mysql> show columns from customers;
 +----------+-------------+------+-----+---------+----------------+
 | Field    | Type        | Null | Key | Default | Extra          |
@@ -262,24 +243,13 @@ mysql> describe customers_bkup;
 +----------+-------------+------+-----+---------+-------+
 5 rows in set (0.00 sec)
 
-mysql> mysql> insert into customers(username,f_name,f_name,l_name,phone) values ('pparker','peter','parker','1111');
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(username,f_name,f_name,l_name,phone) values ('pparker','peter','parker','1111')' at line 1
-mysql> insert into customers (ymers(username,f_name,f_name,l_name,phone) values ('pparker','peter','parker',11111);
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(username,f_name,f_name,l_name,phone) values ('pparker','peter','parker',11111)' at line 1
-mysql> insert into customers (ymers(username,f_name,l_name,phone) values ('pparker','peter','parker',11111);
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(username,f_name,l_name,phone) values ('pparker','peter','parker',11111)' at line 1
 mysql> insert into customers (username,f_name,l_name,phone) values ('pparker','peter','parker',11111);
 Query OK, 1 row affected (0.00 sec)
 
-mysql> insert into customers (ymers(username,f_name,l_name,phone) values ('bwayne','bruce','wayne','22222'),('ckent','clark','kent','33333');
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(username,f_name,l_name,phone) values ('bwayne','bruce','wayne','22222'),('ckent' at line 1
 mysql> insert into customers (username,f_name,l_name,phone) values ('bwayne','bruce','wayne','22222'),('ckent','clark','kent','33333');
 Query OK, 2 rows affected (0.00 sec)
 Records: 2  Duplicates: 0  Warnings: 0
 
-mysql> select * from customersl
-    -> ;
-ERROR 1146 (42S02): Table 'prod.customersl' doesn't exist
 mysql> select * from customers;
 +---------+----------+--------+--------+-------+
 | cust_id | username | f_name | l_name | phone |
@@ -290,8 +260,6 @@ mysql> select * from customers;
 +---------+----------+--------+--------+-------+
 3 rows in set (0.00 sec)
 
-mysql> insert into customercustomers_bkups (username,f_name,f_name,l_name,phone) values ('pparker','peter','parker','1111');
-ERROR 1146 (42S02): Table 'prod.customercustomers_bkups' doesn't exist
 mysql> show tables
     -> ;
 +----------------+
@@ -302,9 +270,6 @@ mysql> show tables
 +----------------+
 2 rows in set (0.00 sec)
 
-mysql> show customers_bkup
-    -> ;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'customers_bkup' at line 1
 mysql> describe customers_bkup;
 +----------+-------------+------+-----+---------+-------+
 | Field    | Type        | Null | Key | Default | Extra |
@@ -317,15 +282,7 @@ mysql> describe customers_bkup;
 +----------+-------------+------+-----+---------+-------+
 5 rows in set (0.00 sec)
 
-mysql> insert into customercustomers_bkup (cust_id,username,f_name,f_name,l_name,phone) values ('pparker','peter','parker','1111');
-ERROR 1146 (42S02): Table 'prod.customercustomers_bkup' doesn't exist
-mysql> insert into customers_bkup (cust_id,username,f_name,f_name,l_name,phone) values ('pparker','peter','parker','1111');
-ERROR 1110 (42000): Column 'f_name' specified twice
-mysql> insert into customers_bkup (cust_id,username,f_name,l_name,phone) values ('pparker','peter','parker','1111');
-ERROR 1136 (21S01): Column count doesn't match value count at row 1
-mysql> insert into customers_bkup (cust_id,username,f_name,l_name,phone) value select * from customers where cust_id='1';
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select * from customers where cust_id='1'' at line 1
-mysql> insert into customers_bkup (cust_id,username,f_name,l_name,phone) select * from customers where cust_id='1';;
+mysql> insert into customers_bkup (cust_id,username,f_name,l_name,phone) select * from customers where cust_id='1';
 Query OK, 1 row affected (0.00 sec)
 Records: 1  Duplicates: 0  Warnings: 0
 
@@ -407,42 +364,8 @@ mysql> show tables from prod;
 mysql> show tables from test;
 Empty set (0.00 sec)
 
-mysql> mysqldump -u root -p -all-databases > full_bkp.sql
-    -> ;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysqldump -u root -p -all-databases > full_bkp.sql' at line 1
-mysql> mysqldump -u root -p --all-databases > full_bkp.sql
-    -> ;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysqldump -u root -p --all-databases > full_bkp.sql' at line 1
-mysql> mysqldump -u root -p customers > test_cust_bkp.sql
-    -> ;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysqldump -u root -p customers > test_cust_bkp.sql' at line 1
-mysql> mysqldump -u root -p customers > test_cust_bkp.sql
-    -> 
-    -> ;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysqldump -u root -p customers > test_cust_bkp.sql' at line 1
-mysql> mysqldump -u root -p --databases dev test > devtest__bkp.sql
-    -> ;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysqldump -u root -p --databases dev test > devtest__bkp.sql' at line 1
-mysql> show databasese;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databasese' at line 1
-mysql> show databases;
-+--------------------+
-| Database           |
-+--------------------+
-| dev                |
-| information_schema |
-| mysql              |
-| performance_schema |
-| prod               |
-| sys                |
-| test               |
-+--------------------+
-7 rows in set (0.00 sec)
 
-mysql> describe data_time;
-ERROR 1146 (42S02): Table 'prod.data_time' doesn't exist
-mysql> create table date_time;
-ERROR 1113 (42000): A table must have at least 1 column
+
 mysql> create table date_time(date date,datetime datetime,timestamp timestamp,time time,year year(4));
 Query OK, 0 rows affected (0.01 sec)
 
@@ -450,23 +373,7 @@ mysql> insert into date_time(date) value('2019-02-23'),('99-01-21');
 Query OK, 2 rows affected (0.00 sec)
 Records: 2  Duplicates: 0  Warnings: 0
 
-mysql> insert into date_time(datetime,timestamp) value('2019-02-23 11:30:00'),('99-01-21 12:00:00');
-ERROR 1136 (21S01): Column count doesn't match value count at row 1
-mysql> insert into date_time(datetime,timestamp) values ('2019-02-23 11:30:00'),('99-01-21 12:00:00');
-ERROR 1136 (21S01): Column count doesn't match value count at row 1
-mysql> insert into date_time(datetime,timestamp) values ('2019-02-23 11:30:00'),(2002:05:15 12:00:00');
-    '> ;
-    '> insert into date_time(datetime,timestamp) values ('2019-02-23 11:30:00'),(2002:05:15 12:00:00');
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':05:15 12:00:00');
-;
-insert into date_time(datetime,timestamp) values ('2019-02-' at line 1
-mysql> insert into date_time(datetime,timestamp) values ('2019-02-23 11:30:00'),(2002:05:15 12:00:00');                                       ;                                                                                                                                             insert into date_time(datetime,timestamp) values ('2019-02-23 11:30:00',2002:05:15 12:00:00');
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':05:15 12:00:00');
-;
-insert into date_time(datetime,timestamp) values ('2019-02-' at line 1
-mysql> insert into date_time(datetime,timestamp) values ('2019-02-23 11:30:00'),(2002:05:15 12:00:00');                                       ;                                                                                                                                             insert into date_time(datetime,timestamp) values ('2019-02-23 11:30:00',2002:05:15 12:00:00');
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':05:15 12:00:00');
-;
+
 insert into date_time(datetime,timestamp) values ('2019-02-' at line 1
 mysql> select * from date_time;
 +------------+----------+-----------+------+------+
@@ -477,10 +384,7 @@ mysql> select * from date_time;
 +------------+----------+-----------+------+------+
 2 rows in set (0.00 sec)
 
-mysql> insert into date_time(datetime,timestamp) values ('2019-02-23 11:30:00','2002:05:15 12:00:00');                                        ;                                                                                                                                             Query OK, 1 row affected (0.00 sec)
 
-ERROR: 
-No query specified
 
 mysql> insert into date_time(datetime,timestamp) values ('2019-02-23 11:30:00','2002:05:15 12:00:00');                                        Query OK, 1 row affected (0.00 sec)
 
@@ -535,10 +439,6 @@ mysql> select * from customers;
 +---------+----------+--------+--------+-------+
 3 rows in set (0.01 sec)
 
-mysql> create view phone as select l_name,f_name,phone from customers ordered by l_name;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'by l_name' at line 1
-mysql> create view cust_phone as select l_name,f_name,phone from customers ordered by l_name;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'by l_name' at line 1
 mysql> create view cust_phone as select l_name,f_name,phone from customers order by l_name;
 Query OK, 0 rows affected (0.01 sec)
 
@@ -594,11 +494,7 @@ mysql> select * from customers;
 +---------+----------+--------+--------+-------+
 3 rows in set (0.00 sec)
 
-mysql> describe auditl
-    -> describe audit;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'describe audit' at line 2
-mysql> describe audit;
-ERROR 1146 (42S02): Table 'prod.audit' doesn't exist
+
 mysql> create table audit (username varchar(25), phone varchar(25), date datetime);
 Query OK, 0 rows affected (0.01 sec)
 
@@ -676,8 +572,6 @@ mysql> select * from audit;
 +----------+-------+---------------------+
 2 rows in set (0.00 sec)
 
-mysql> show truggers\g
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'truggers' at line 1
 mysql> show triggers\g
 +----------------+--------+-----------+-------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
 | Trigger        | Event  | Table     | Statement                                                                     | Timing | Created                | sql_mode                                                                                                              | Definer        | character_set_client | collation_connection | Database Collation |
@@ -721,18 +615,12 @@ mysql> call getCustomers();
 
 Query OK, 0 rows affected (0.00 sec)
 
-mysql> create function hello (s char(20))
-    -> return char(50) deterministic
-    -> return concat('hello, ',s,'!');
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'return char(50) deterministic
-return concat('hello, ',s,'!')' at line 2
+
 mysql> create function hello (s char(20)) 
     -> returns char(50) deterministic
     -> return concat('helle, ',s,'!');
 Query OK, 0 rows affected (0.01 sec)
 
-mysql> selectt hello('world');
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selectt hello('world')' at line 1
 mysql> select hello('world');
 +----------------+
 | hello('world') |
@@ -790,32 +678,18 @@ Query OK, 0 rows affected, 1 warning (0.00 sec)
 mysql> show events from prod\G
 Empty set (0.01 sec)
 
-mysql> alter event test do select * from customers_test;
-ERROR 1539 (HY000): Unknown event 'test'
-mysql> alter event test do select * from customers;
-ERROR 1539 (HY000): Unknown event 'test'
+
 mysql> create event test on schedule at '2019-10-29 07:22:00' do select * from customers;
 Query OK, 0 rows affected, 1 warning (0.00 sec)
 
-mysql> show event test;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'event test' at line 1
-mysql> drop event test;
-ERROR 1539 (HY000): Unknown event 'test'
+
 mysql> create event test on schedule at '2019-10-29 07:25:00' do select * from customers;
 Query OK, 0 rows affected, 1 warning (0.00 sec)
 
 mysql> create event test on schedule at '2019-10-29 07:28:00' do select * from customers;
 Query OK, 0 rows affected, 1 warning (0.00 sec)
 
-mysql> show event test;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'event test' at line 1
-mysql> show create event test;
-ERROR 1539 (HY000): Unknown event 'test'
-mysql> show create event;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
-mysql> drop event test
-    -> ;
-ERROR 1539 (HY000): Unknown event 'test'
+
 mysql> create table products (product_id int primary key auto_increment, product_type varchar(255) not null unique, price decimal(10,2));
 Query OK, 0 rows affected (0.01 sec)
 
@@ -829,8 +703,6 @@ mysql> describe products;
 +--------------+---------------+------+-----+---------+----------------+
 3 rows in set (0.00 sec)
 
-mysql> create table orders (order_id int primary key auto_increment, cust_id int, product_type varchar(255) not null, quantity int default 1, order_date date, foreign key (cust_id) references customers(cust_id), foreigh key (product_type references products(product_type));
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key (product_type references products(product_type))' at line 1
 mysql> select * from customers;
 +---------+----------+--------+--------+-------+
 | cust_id | username | f_name | l_name | phone |
@@ -869,8 +741,7 @@ mysql> select * from customers;
 +---------+----------+--------+--------+-------+
 3 rows in set (0.00 sec)
 
-mysql> select * from tables where username like 'b%';
-ERROR 1146 (42S02): Table 'prod.tables' doesn't exist
+
 mysql> select * from customers where username like 'b%';
 +---------+----------+--------+--------+-------+
 | cust_id | username | f_name | l_name | phone |
@@ -907,42 +778,3 @@ mysql> select * from customers order by username;
 +---------+----------+--------+--------+-------+
 3 rows in set (0.00 sec)
 
-mysql> create table orders (order_id int primary key auto_increment, cust_id int, product_type varchar(255) not null, quantity int default 1, order_date date, foreign key (cust_id) references customers(cust_id), foreigh key (product_type references products(product_type)); 
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key (product_type references products(product_type))' at line 1
-mysql> create table orders (order_id int primary key auto_increment, cust_id int, product_type varchar(255) not null, quantity int default 1, order_date date, foreign key(cust_id) references customers(cust_id), foreign key (product_type references products(product_type));
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references products(product_type))' at line 1
-mysql> CREATE TABLE sales.orders (
-    ->  order_id INT IDENTITY (1, 1) PRIMARY KEY,
-    ->  customer_id INT,
-    ->  order_status tinyint NOT NULL,
-    ->  -- Order status: 1 = Pending; 2 = Processing; 3 = Rejected; 4 = Completed
-    ->  order_date DATE NOT NULL,
-    ->  required_date DATE NOT NULL,
-    ->  shipped_date DATE,
-    ->  store_id INT NOT NULL,
-    ->  staff_id INT NOT NULL,
-    ->  FOREIGN KEY (customer_id) 
-    ->         REFERENCES sales.customers (customer_id) 
-    ->         ON DELETE CASCADE ON UPDATE CASCADE,
-    ->  FOREIGN KEY (store_id) 
-    ->         REFERENCES sales.stores (store_id) 
-    ->         ON DELETE CASCADE ON UPDATE CASCADE,
-    ->  FOREIGN KEY (staff_id) 
-    ->         REFERENCES sales.staffs (staff_id) 
-    -> ;   
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'IDENTITY (1, 1) PRIMARY KEY,
- customer_id INT,
- order_status tinyint NOT NULL,
- ' at line 2
-mysql> mysql> create table orders (order_id int primary key, cust_id int, product varchar(255), order_date date, foreign key (cust_id) references customers (cust_id));
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'create table orders (order_id int primary key, cust_id int, product varchar(255)' at line 1
-mysql> CREATE TABLE Orders (
-    ->     OrderID int NOT NULL,
-    ->     OrderNumber int NOT NULL,
-    ->     PersonID int,
-    ->     PRIMARY KEY (OrderID),
-    ->     FOREIGN KEY (PersonID) REFERENCES Persons(PersonID)
-    -> ;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 6
-mysql> CREATE TABLE Orders (
-    -> OrderID int NOT NULL
